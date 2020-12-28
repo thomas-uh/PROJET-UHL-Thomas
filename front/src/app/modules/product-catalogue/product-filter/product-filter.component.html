@@ -1,0 +1,28 @@
+<section>
+    <form id="filterForm" [formGroup]="filterForm">
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="name-filter">Filter par nom</label>
+                <input type="text" class="form-control" id="name-filter" formControlName="nameFilter">
+            </div>
+            <div class="col-md-3">
+                <label for="price-filter-le">Filtrer par prix (prix inférieur à)</label>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="price-filter-le" formControlName="priceFilterLE">
+                    <div class="input-group-append">
+                        <span class="input-group-text">€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="price-filter-le">Filtrer par prix (prix supérieur à)</label>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="price-filter-ge" formControlName="priceFilterGE">
+                    <div class="input-group-append">
+                        <span class="input-group-text">€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

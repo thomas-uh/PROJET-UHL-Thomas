@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Poupée Rose",
+        "description": "C'est une poupée en forme d'ourson tout rose !",
+        "price": 15
+    },
+    {
+        "name": "Chateau en bois",
+        "description": "Assez solide pour défendre votre chambre de ces terribles parents !",
+        "price": 50
+    },
+    {
+        "name": "Paquet de carte",
+        "description": "Un paquet de 52 cartes ... rien de plus classique. Il faut pas s'attendre à des miracles tout le temps...",
+        "price": 5.99
+    },
+    {
+        "name": "Lego Star Wars",
+        "description": "Un magnifique ensemble de Lego Star Wars pour se replonger dans la saga. Par contre, il est recommadé d'apprendre à son enfant de ranger ... Eh oui, on aimerait éviter de marcher dessus !",
+        "price": 129.99
+    },
+    {
+        "name": "Passat W8 télécommandée",
+        "description": "Un bolide, ça c'est sûr !",
+        "price": 70
+    }
+]

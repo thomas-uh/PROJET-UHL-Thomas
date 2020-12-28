@@ -1,0 +1,20 @@
+<section class="my-5">
+    <h2>Panier :</h2>
+    <span class="badge badge-primary">(Taille du panier : {{ cartSize$ | async }})</span>
+
+    <div class="card my-2" *ngFor="let product of productCart$ | async">
+        <div class="card-header">
+            {{product.name}} 
+            <span class="badge badge-primary">{{product.price}} €</span>
+            <button type="button" class="btn btn-primary mx-1" style="float: right;" (click)="RemoveFromCart(product)">Supprimer du panier</button>
+            <button type="button" class="btn btn-secondary mx-1" style="float: right;" (click)="RemoveOneUnitFromCart(product)">Supprimer 1 unité</button>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Quantité : {{product.quantity}}</p>
+            <p class="card-text">Sous total pour ce produit : {{product.quantity * product.price}} €</p>
+        </div>
+    </div>
+
+    <h3>Valeur totale du panier : {{ cartValue$ | async }} €</h3>
+    <button type="button" class="btn btn-primary my-1" style="display: block;" (click)="ClearCart()">Vider le panier</button>
+</section>

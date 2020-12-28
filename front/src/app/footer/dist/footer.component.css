@@ -1,0 +1,9 @@
+.footing {
+  color: white;
+  text-align: center;
+  height: 100px;
+}
+
+.footing span {
+  display: block;
+}

@@ -1,0 +1,41 @@
+<header class="heading pt-3 bg-dark">
+  <h1>TP - Web</h1>
+  <h3>Petit site de commerce avec gestion de comptes et de panier</h3>    
+
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">TP de Web</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/" routerLinkActive="active">Accueil</a>
+          </li>
+          <li class="nav-item" *ngIf="!(login$ | async )">
+            <a class="nav-link" routerLink="/account/register" routerLinkActive="active">Créer un compte</a>
+          </li>
+          <li class="nav-item" *ngIf="!(login$ | async )">
+            <a class="nav-link" routerLink="/account/login" routerLinkActive="active">Se connecter</a>
+          </li>
+          <li class="nav-item" *ngIf="(login$ | async )">
+            <a class="nav-link" routerLink="/account/view" routerLinkActive="active">Mon compte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/product/list" routerLinkActive="active">Catalogue de produit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/product/cart" routerLinkActive="active">Panier ({{ cartSize$ | async }} éléments)</a>
+          </li>
+        </ul>
+      </div>
+
+      <form class="form-inline" *ngIf="(login$ | async ) as login">
+        <span class="mx-3">Connecté en tant que : {{ login }}</span>
+        <button class="btn btn-sm btn-outline-danger" type="button" (click)="disconnect()">Se déconnecter</button>
+      </form>
+    </nav>
+
+</header>

@@ -1,0 +1,12 @@
+<section class="my-5" *ngIf="(account$ | async) as account">
+    <h2>Voici les informations du compte enregistré :</h2>
+    <div class="account">
+        <span class="account-info">Nom : {{account.lastname}}</span>
+        <span class="account-info">Prénom : {{account.firstname}}</span>
+        <span class="account-info">Civilité : {{account.civility}}</span>
+        <span class="account-info">Adresse : {{account.address.street}} {{account.address.zipCode}} {{account.address.city}}, {{account.address.country}}</span>
+        <span class="account-info">Téléphone : {{account.phone}}</span>
+        <span class="account-info">Adresse email : {{account.email}}</span>
+        <span class="account-info">Identifiant : {{account.login}}</span>
+    </div>
+</section>

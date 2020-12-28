@@ -1,0 +1,11 @@
+<section class="my-5" *ngIf="(product$ | async) as product">
+    <button type="button" class="btn btn-primary" routerLink="/product/list">Retour aux produits</button>
+    <h2>Produit : {{ product.name }}</h2>
+    <span class="badge badge-primary">{{product.price}} €</span>
+
+    <p>
+        {{product.description}}
+    </p>
+
+    <button type="button" class="btn btn-primary" (click)="AddToCart(product)">Ajouter au Panier</button>
+</section>
