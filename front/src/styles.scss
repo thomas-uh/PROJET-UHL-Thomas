@@ -11,3 +11,11 @@ html, body {
     font-size: 1.5em;
     font-weight: 700;
 }
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
