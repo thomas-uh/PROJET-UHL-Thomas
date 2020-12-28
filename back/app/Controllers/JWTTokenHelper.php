@@ -18,4 +18,13 @@ class JWTTokenHelper {
        return JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
     }
 
+    public static function decodeJWTToken(string $header) {
+        $arr = explode(' ', $header);
+
+        if (count($arr) != 2) return [];
+
+        $jwt = $arr[1];
+
+        return (array)JWT::decode($jwt, $_ENV['JWT_SECRET'], array('HS256'));
+    }
 }

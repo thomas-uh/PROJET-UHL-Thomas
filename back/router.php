@@ -24,7 +24,7 @@ return function(App $app) {
     $app->group('/users', function(Group $group) {
         $group->post('/login', UserController::class . ':login');
         $group->post('/register', UserController::class . ':register');
-        $group->get('/account/{login}', UserController::class . ':getUser');
+        $group->get('/account', UserController::class . ':getUser');
     });
 
     $options = [

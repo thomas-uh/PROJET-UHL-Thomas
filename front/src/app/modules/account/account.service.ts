@@ -39,7 +39,7 @@ export class AccountService {
     );
   }
 
-  getUser(login: string): Observable<Account> {
-    return this.http.get<Account>(environment.backendAPI + 'users/account/' + login);
+  getUser(): Observable<Account> {
+    return this.http.get<Account>(environment.backendAPI + 'users/account');
   }
 }

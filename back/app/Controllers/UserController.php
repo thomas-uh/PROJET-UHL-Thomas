@@ -125,7 +125,8 @@ class UserController
 
     public function getUser(Request $request, Response $response, array $args): Response
     {
-        $login = $args['login'] ?? "";
+        $authHeader = $request->getHeaderLine('authorization');
+        $login = JWTTokenHelper::decodeJWTToken($authHeader)['user_login'] ?? '';
 
         if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login)) return $response->withStatus(400);
 

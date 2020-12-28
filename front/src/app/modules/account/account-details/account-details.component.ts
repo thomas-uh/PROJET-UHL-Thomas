@@ -18,19 +18,7 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountService: AccountService, private store: Store) { }
 
   ngOnInit(): void {
-    this.account$ = this.store.select(AccountState.getLogin)
-      .pipe(
-        mergeMap(
-          (login: string): Observable<Account> => {
-            if (login !== '') {
-              return this.accountService.getUser(login);
-            }
-            else {
-              return of(null);
-            }
-          }
-        )
-      );
+    this.account$ = this.accountService.getUser();
   }
 
 }
