@@ -7,14 +7,11 @@ use Slim\App;
 use Tuupola\Middleware\JwtAuthentication;
 
 use App\Controllers\UserController;
+use App\Controllers\ProductController;
 use App\Middlewares\CorsMiddleware;
 use App\Controllers\ErrorController;
 
 return function(App $app) {
-    // Error routing
-    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-    $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
-
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         return $response;
     });
@@ -27,6 +24,10 @@ return function(App $app) {
         $group->get('/account', UserController::class . ':getUser');
     });
 
+    $app->group('/products', function(Group $group) {
+        $group->get('/all', ProductController::class . ':all');
+    });
+
     $options = [
         "attribute" => "token",
         "header" => "Authorization",
@@ -35,7 +36,7 @@ return function(App $app) {
         "algorithm" => ["HS256"],
         "secret" => $_ENV['JWT_SECRET'],
         "path" => ["/"],
-        "ignore" => ["/users/register","/users/login"],
+        "ignore" => ["/users/register","/users/login", "/products"],
         "error" => function ($response, $arguments) {
             $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
             $response = $response->withStatus(401);
@@ -44,5 +45,9 @@ return function(App $app) {
     ];
 
     $app->add(new JwtAuthentication($options));
+
+    // Error routing
+    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
 };
 

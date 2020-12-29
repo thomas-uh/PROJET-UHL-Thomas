@@ -373,4 +373,54 @@ class Client
     {
         return $this->email;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="buyer")
+     */
+    private $orders;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add order.
+     *
+     * @param \Order $order
+     *
+     * @return Client
+     */
+    public function addOrder(\Order $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order.
+     *
+     * @param \Order $order
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeOrder(\Order $order)
+    {
+        return $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
 }

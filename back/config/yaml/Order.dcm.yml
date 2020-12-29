@@ -1,0 +1,38 @@
+Order:
+  type: entity
+  table: order
+  id:
+    idOrder:
+      type: integer
+      nullable: false
+      options:
+        unsigned: false
+      id: true
+      column: id_order
+      generator:
+        strategy: SEQUENCE
+  manyToOne:
+    buyer:
+      targetEntity: Client
+      inversedBy: orders
+      joinColumn:
+        name: buyer_id
+        referencedColumnName: id_user
+  manyToMany:
+    products:
+      targetEntity: Product
+      joinTable:
+        name: order_product
+        joinColumns:
+          order_id:
+            referencedColumnName: id_order
+        inverseJoinColumns:
+          product_id:
+            referencedColumnName: id_product
+  fields:
+    date:
+      type: date
+      nullable: false
+      options:
+        fixed: false
+  lifecycleCallbacks: {}
