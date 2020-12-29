@@ -1,20 +1,26 @@
-<section class="my-5">
-    <h2>Panier :</h2>
-    <span class="badge badge-primary">(Taille du panier : {{ cartSize$ | async }})</span>
+<section class="my-5 container">
+    <h2 class="mb-3">Votre panier :</h2>
 
-    <div class="card my-2" *ngFor="let product of productCart$ | async">
-        <div class="card-header">
-            {{product.name}} 
-            <span class="badge badge-primary">{{product.price}} €</span>
-            <button type="button" class="btn btn-primary mx-1" style="float: right;" (click)="RemoveFromCart(product)">Supprimer du panier</button>
-            <button type="button" class="btn btn-secondary mx-1" style="float: right;" (click)="RemoveOneUnitFromCart(product)">Supprimer 1 unité</button>
+    <div *ngIf="(cartSize$ | async) != 0">
+
+        <div class="card my-2" *ngFor="let product of productCart$ | async">
+            <div class="card-header">
+                {{product.name}} 
+                <span class="badge badge-primary">{{product.price}} €</span>
+                <button type="button" class="btn btn-primary mx-1" style="float: right;" (click)="RemoveFromCart(product)">Supprimer du panier</button>
+                <button type="button" class="btn btn-secondary mx-1" style="float: right;" (click)="RemoveOneUnitFromCart(product)">Supprimer 1 unité</button>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Quantité : {{product.quantity}}</p>
+                <p class="card-text">Sous total pour ce produit : {{product.quantity * product.price}} €</p>
+            </div>
         </div>
-        <div class="card-body">
-            <p class="card-text">Quantité : {{product.quantity}}</p>
-            <p class="card-text">Sous total pour ce produit : {{product.quantity * product.price}} €</p>
-        </div>
+    
+        <span class="cart-info">Nombre d'éléments : {{ cartSize$ | async }}</span>
+        <span class="cart-info">Valeur totale du panier : {{ cartValue$ | async }} €</span>
+        <button type="button" class="btn btn-primary mt-3" style="display: block;" (click)="ClearCart()">Vider le panier</button>
+
     </div>
 
-    <h3>Valeur totale du panier : {{ cartValue$ | async }} €</h3>
-    <button type="button" class="btn btn-primary my-1" style="display: block;" (click)="ClearCart()">Vider le panier</button>
+    
 </section>

@@ -18,13 +18,10 @@ export class ProductListComponent implements OnInit {
   public products$: Observable<Product[]>;
   private filters$: BehaviorSubject<ProductFilter>;
   public filteredProducts$: Observable<Product[]>;
-  public cartSize$: Observable<number>;
 
   constructor(private productService: ProductService, private store: Store) { }
 
   ngOnInit(): void {
-    this.cartSize$ = this.store.select(ProductState.getNbOfProducts);
-
     this.products$ = this.productService.getProducts();
 
     this.filters$ = new BehaviorSubject(new ProductFilter('', -1, -1));

@@ -1,5 +1,5 @@
-<section class="my-5">
-    <h2>Création de compte</h2>
+<section class="my-5 container">
+    <h2>Créez votre &lt;espace&gt;</h2>
     <form id="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
             <div class="form-group col">
@@ -119,9 +119,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary center">Valider</button>
+        <button type="submit" class="btn btn-primary center">Créer mon &lt;espace&gt; !</button>
         <div *ngIf="accountForm.invalid" class="alert alert-primary my-3">
-            Veuillez compléter le formulaire s'il vous plait.
+            Veillez à ne pas laisser d'espace vide !
         </div>
     </form>
 </section>

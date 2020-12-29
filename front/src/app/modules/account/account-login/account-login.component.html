@@ -1,5 +1,5 @@
-<section class="my-5">
-    <h2>Se connecter</h2>
+<section class="my-5 container">
+    <h2>Connectez vous à votre &lt;espace&gt;</h2>
 
     <form id="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
@@ -20,10 +20,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary center">Se connecter</button>
+        <button type="submit" class="btn btn-primary center">C'est parti !</button>
         <div *ngIf="(loginResponse$ | async ) as response" class="alert alert-danger my-3">
             <span *ngIf="!response.success">Erreur lors de la connexion</span>
         </div>
     </form>
-    <span>Information : Pour le test, les identifiants sont thomas / password</span>
 </section>

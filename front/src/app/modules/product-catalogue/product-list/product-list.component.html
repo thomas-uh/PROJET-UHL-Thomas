@@ -1,10 +1,7 @@
-<section class="my-5">
-    <h2>Liste des produits</h2>
+<section class="my-5 container">
+    <h2>Construisez votre &lt;espace&gt;</h2>
     
-    <h3>Moteur de recherche : </h3>
     <app-product-filter (filterEvent)="onFilterEvent($event)"></app-product-filter>
-
-    <h3>Nombre de produits dans le panier : {{cartSize$ | async}}</h3>
 
     <div class="card my-2" *ngFor="let product of filteredProducts$ | async">
         
