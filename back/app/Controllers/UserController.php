@@ -6,6 +6,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\ORM\EntityManager;
 
+use App\Helpers\JWTTokenHelper;
+
 class UserController
 {
     private EntityManager $em;
@@ -125,8 +127,7 @@ class UserController
 
     public function getUser(Request $request, Response $response, array $args): Response
     {
-        $authHeader = $request->getHeaderLine('authorization');
-        $login = JWTTokenHelper::decodeJWTToken($authHeader)['user_login'] ?? '';
+        $login = JWTTokenHelper::getLoginFromAuth($request);
 
         if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login)) return $response->withStatus(400);
 

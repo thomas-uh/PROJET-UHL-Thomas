@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\ORM\EntityManager;
-use App\Controllers\ProductHelper;
+use App\Helpers\ProductHelper;
 
 class ProductController
 {

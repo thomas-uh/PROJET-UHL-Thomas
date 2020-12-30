@@ -6,7 +6,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\ORM\EntityManager;
 
-use App\Controllers\ProductHelper;
+use App\Helpers\ProductHelper;
+use App\Helpers\JWTTokenHelper;
 use Purchase;
 
 class OrderController
@@ -20,8 +21,7 @@ class OrderController
     }
 
     public function order(Request $request, Response $response, array $args): Response {
-        $authHeader = $request->getHeaderLine('authorization');
-        $login = JWTTokenHelper::decodeJWTToken($authHeader)['user_login'] ?? '';
+        $login = JWTTokenHelper::getLoginFromAuth($request);
 
         $clientRepo = $this->em->getRepository('Client');
         $client = $clientRepo->findOneBy([

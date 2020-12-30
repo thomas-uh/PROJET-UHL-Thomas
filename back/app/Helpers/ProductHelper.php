@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Helpers;
 
 use Doctrine\ORM\EntityManager;
 use Product;
