@@ -12,18 +12,28 @@ import { AccountService } from '../account.service';
 export class OrderDetailComponent implements OnInit {
 
   public orderDetail$: Observable<Array<{product_id: number, product_name: string, product_price: number, quantity: number}>>;
+  public order$: Observable<{order_id: number, date: {date: Date, timezone_type: number, timezone: string}}>;
 
   constructor(private route: ActivatedRoute, private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.orderDetail$ = this.accountService.getPurchase(Number.parseInt(this.route.snapshot.paramMap.get('order_id'))).pipe(
+    this.orderDetail$ = this.accountService.getPurchaseDetail(Number.parseInt(this.route.snapshot.paramMap.get('order_id'))).pipe(
       map(
         (apiResponse: {success: boolean, result: Array<{product_id: number, product_name: string, product_price: number, quantity: number}>})
           : Array<{product_id: number, product_name: string, product_price: number, quantity: number}> => {
           return apiResponse.result;
         }
       )
-    )
+    );
+
+    this.order$ = this.accountService.getPurchase(Number.parseInt(this.route.snapshot.paramMap.get('order_id'))).pipe(
+      map(
+        (apiResponse: {success: boolean, result: {order_id: number, date: {date: Date, timezone_type: number, timezone: string}}})
+          : {order_id: number, date: {date: Date, timezone_type: number, timezone: string}} => {
+          return apiResponse.result;
+        }
+      )
+    );
   }
 
 }

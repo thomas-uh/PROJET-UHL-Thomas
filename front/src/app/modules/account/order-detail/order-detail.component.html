@@ -1,5 +1,5 @@
-<section class="my-5 container">
-    <h2>A propos votre commande du : </h2>
+<section class="my-5 container" *ngIf="(order$ | async) as order">
+    <h2>A propos votre commande du : {{ order.date.date | date:'dd/MM/yyyy' }}</h2>
 
     <div class="my-3">
         <h3>Produits commandés</h3>

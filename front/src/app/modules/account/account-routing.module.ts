@@ -23,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'purchase/:order_id',
-    component: OrderDetailComponent
+    component: OrderDetailComponent,
+    canActivate: [AuthGuard]
   },
 ];
 
