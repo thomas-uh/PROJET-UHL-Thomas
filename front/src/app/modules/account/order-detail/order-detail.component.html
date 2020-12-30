@@ -1,4 +1,5 @@
 <section class="my-5 container" *ngIf="(order$ | async) as order">
+    <button type="button" class="btn btn-secondary mb-5" routerLink="/account/view">&lt; Retour à votre &lt;espace&gt;</button>
     <h2>A propos votre commande du : {{ order.date.date | date:'dd/MM/yyyy' }}</h2>
 
     <div class="my-3">

@@ -8,22 +8,10 @@
     background-position: bottom;
 }
 
-.home::after {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba($color: #000000, $alpha: 0.3);
-    content: '';
-    z-index: 1;
-}
-
 .title {
     font-size: 2em;
     color: white;
     text-align: center;
     padding-top: 5em;
     position: relative;
-    z-index: 999;
 }

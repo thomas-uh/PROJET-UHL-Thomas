@@ -1,6 +1,6 @@
 <section class="my-5 container" *ngIf="(product$ | async) as product">
     <button type="button" class="btn btn-secondary mb-5" routerLink="/product/list">&lt; Retour aux produits</button>
-    <h2>Produit : {{ product.name }} <span class="badge badge-info">{{product.price}} €</span></h2>
+    <h2>{{ product.name }} <span class="badge badge-info">{{product.price}} €</span></h2>
 
     <p class="product-description">
         {{product.description}}
