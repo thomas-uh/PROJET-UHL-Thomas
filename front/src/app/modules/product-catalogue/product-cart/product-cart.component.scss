@@ -1,3 +1,13 @@
 .cart-info {
     display: block;
 }
+
+.cart-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.cart-actions button {
+    font-size: 1.2em;
+}

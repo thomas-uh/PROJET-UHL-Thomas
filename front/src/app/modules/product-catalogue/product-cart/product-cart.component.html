@@ -18,8 +18,10 @@
     
         <span class="cart-info">Nombre d'éléments : {{ cartSize$ | async }}</span>
         <span class="cart-info">Valeur totale du panier : {{ cartValue$ | async }} €</span>
-        <button type="button" class="btn btn-primary mt-3" style="display: block;" (click)="ClearCart()">Vider le panier</button>
-
+        <div class="cart-actions mt-3">
+            <button type="button" class="btn btn-secondary" (click)="ClearCart()">Vider le panier</button>
+            <button type="button" class="btn btn-primary" (click)="Order()">Valider votre achat !</button>
+        </div>
     </div>
 
     

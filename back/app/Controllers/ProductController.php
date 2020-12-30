@@ -5,14 +5,16 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\ORM\EntityManager;
-use Product;
+use App\Controllers\ProductHelper;
 
 class ProductController
 {
     private EntityManager $em;
+    private ProductHelper $productHelper;
 
     public function __construct(EntityManager $em) {
         $this->em = $em;
+        $this->productHelper = new ProductHelper($em);
     }
 
     public function all(Request $request, Response $response, array $args): Response {
@@ -21,7 +23,7 @@ class ProductController
         $productsRaw = $productRepo->findAll();
         $products = array();
 
-        foreach($productsRaw as $product) array_push($products, $this->parseProduct($product));
+        foreach($productsRaw as $product) array_push($products, $this->productHelper->stringifyProduct($product));
 
         $response->getBody()->write(json_encode($products));
 
@@ -29,13 +31,4 @@ class ProductController
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
     }
-
-    private function parseProduct(Product $product): array {
-        return [
-            'name' => $product->getName(),
-            'description' => $product->getDescription(),
-            'price' => $product->getPrice()
-        ];
-    }
-
 }

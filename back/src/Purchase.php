@@ -5,20 +5,20 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Order
+ * Purchase
  *
- * @ORM\Table(name="order")
+ * @ORM\Table(name="purchase")
  * @ORM\Entity
  */
-class Order
+class Purchase
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id_order", type="integer")
+     * @ORM\Column(name="id_purchase", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="order_id_order_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="purchase_id_purchase_seq", allocationSize=1, initialValue=1)
      */
     private $idOrder;
 
@@ -43,9 +43,9 @@ class Order
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Product")
-     * @ORM\JoinTable(name="order_product",
+     * @ORM\JoinTable(name="purchase_product",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="order_id", referencedColumnName="id_order")
+     *     @ORM\JoinColumn(name="order_id", referencedColumnName="id_purchase")
      *   },
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="product_id", referencedColumnName="id_product")
@@ -77,7 +77,7 @@ class Order
      *
      * @param \DateTime $date
      *
-     * @return Order
+     * @return Purchase
      */
     public function setDate($date)
     {
@@ -101,7 +101,7 @@ class Order
      *
      * @param \Client|null $buyer
      *
-     * @return Order
+     * @return Purchase
      */
     public function setBuyer(\Client $buyer = null)
     {
@@ -125,7 +125,7 @@ class Order
      *
      * @param \Product $product
      *
-     * @return Order
+     * @return Purchase
      */
     public function addProduct(\Product $product)
     {

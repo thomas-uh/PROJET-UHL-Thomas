@@ -1,3 +1,4 @@
+import { CartItem } from './../../shared/CartItem';
 import { environment } from '../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -23,6 +24,19 @@ export class ProductService {
           return products.find((p) => p.name === name);
         }
       )
+    );
+  }
+
+  postOrder(products: CartItem[]): Observable<{success: boolean}> {
+    let body = new URLSearchParams();
+    body.set('products', JSON.stringify(products));
+
+    return this.http.post<{success: boolean}>(
+      environment.backendAPI + 'users/order',
+      body.toString(),
+      {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      }
     );
   }
 }

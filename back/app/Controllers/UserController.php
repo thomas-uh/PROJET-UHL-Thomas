@@ -166,5 +166,5 @@ class UserController
             ->withHeader('Content-Type', 'application/json')
             ->withHeader('Authorization', 'Bearer ' . $token_jwt)
             ->withStatus(200);
-    }
+    }  
 }

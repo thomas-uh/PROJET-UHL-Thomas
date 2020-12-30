@@ -16,7 +16,7 @@ Client:
       columns: login
   oneToMany:
     orders:
-      targetEntity: Order
+      targetEntity: Purchase
       mappedBy: buyer
   fields:
     lastname:

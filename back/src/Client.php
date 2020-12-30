@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Client
  *
- * @ORM\Table(name="client")
+ * @ORM\Table(name="client", uniqueConstraints={@ORM\UniqueConstraint(name="login_un", columns={"login"})})
  * @ORM\Entity
  */
 class Client
@@ -23,6 +23,69 @@ class Client
     private $idUser;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="lastname", type="string", length=256, nullable=true)
+     */
+    private $lastname;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="firstname", type="string", length=256, nullable=true)
+     */
+    private $firstname;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="civility", type="string", length=256, nullable=true)
+     */
+    private $civility;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="street", type="string", length=256, nullable=true)
+     */
+    private $street;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="zipCode", type="string", length=256, nullable=true)
+     */
+    private $zipCode;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="city", type="string", length=256, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="country", type="string", length=256, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="phone", type="string", length=256, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="string", length=256, nullable=true)
+     */
+    private $email;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="login", type="string", length=256, nullable=false)
@@ -36,6 +99,20 @@ class Client
      */
     private $password;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Purchase", mappedBy="buyer")
+     */
+    private $orders;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get idUser.
@@ -45,6 +122,222 @@ class Client
     public function getIdUser()
     {
         return $this->idUser;
+    }
+
+    /**
+     * Set lastname.
+     *
+     * @param string|null $lastname
+     *
+     * @return Client
+     */
+    public function setLastname($lastname = null)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname.
+     *
+     * @return string|null
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set firstname.
+     *
+     * @param string|null $firstname
+     *
+     * @return Client
+     */
+    public function setFirstname($firstname = null)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname.
+     *
+     * @return string|null
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set civility.
+     *
+     * @param string|null $civility
+     *
+     * @return Client
+     */
+    public function setCivility($civility = null)
+    {
+        $this->civility = $civility;
+
+        return $this;
+    }
+
+    /**
+     * Get civility.
+     *
+     * @return string|null
+     */
+    public function getCivility()
+    {
+        return $this->civility;
+    }
+
+    /**
+     * Set street.
+     *
+     * @param string|null $street
+     *
+     * @return Client
+     */
+    public function setStreet($street = null)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street.
+     *
+     * @return string|null
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set zipCode.
+     *
+     * @param string|null $zipCode
+     *
+     * @return Client
+     */
+    public function setZipCode($zipCode = null)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipCode.
+     *
+     * @return string|null
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * Set city.
+     *
+     * @param string|null $city
+     *
+     * @return Client
+     */
+    public function setCity($city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city.
+     *
+     * @return string|null
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set country.
+     *
+     * @param string|null $country
+     *
+     * @return Client
+     */
+    public function setCountry($country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country.
+     *
+     * @return string|null
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set phone.
+     *
+     * @param string|null $phone
+     *
+     * @return Client
+     */
+    public function setPhone($phone = null)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone.
+     *
+     * @return string|null
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set email.
+     *
+     * @param string|null $email
+     *
+     * @return Client
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email.
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -94,308 +387,15 @@ class Client
     {
         return $this->password;
     }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lastname", type="string", length=256, nullable=false)
-     */
-    private $lastname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="firstname", type="string", length=256, nullable=false)
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="civility", type="string", length=256, nullable=false)
-     */
-    private $civility;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="street", type="string", length=256, nullable=false)
-     */
-    private $street;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="zipCode", type="string", length=256, nullable=false)
-     */
-    private $zipCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=256, nullable=false)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=256, nullable=false)
-     */
-    private $country;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=256, nullable=false)
-     */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=256, nullable=false)
-     */
-    private $email;
-
-
-    /**
-     * Set lastname.
-     *
-     * @param string $lastname
-     *
-     * @return Client
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname.
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set firstname.
-     *
-     * @param string $firstname
-     *
-     * @return Client
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Get firstname.
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set civility.
-     *
-     * @param string $civility
-     *
-     * @return Client
-     */
-    public function setCivility($civility)
-    {
-        $this->civility = $civility;
-
-        return $this;
-    }
-
-    /**
-     * Get civility.
-     *
-     * @return string
-     */
-    public function getCivility()
-    {
-        return $this->civility;
-    }
-
-    /**
-     * Set street.
-     *
-     * @param string $street
-     *
-     * @return Client
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    /**
-     * Get street.
-     *
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * Set zipCode.
-     *
-     * @param string $zipCode
-     *
-     * @return Client
-     */
-    public function setZipCode($zipCode)
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipCode.
-     *
-     * @return string
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
-
-    /**
-     * Set city.
-     *
-     * @param string $city
-     *
-     * @return Client
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city.
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set country.
-     *
-     * @param string $country
-     *
-     * @return Client
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country.
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set phone.
-     *
-     * @param string $phone
-     *
-     * @return Client
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone.
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return Client
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="buyer")
-     */
-    private $orders;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add order.
      *
-     * @param \Order $order
+     * @param \Purchase $order
      *
      * @return Client
      */
-    public function addOrder(\Order $order)
+    public function addOrder(\Purchase $order)
     {
         $this->orders[] = $order;
 
@@ -405,11 +405,11 @@ class Client
     /**
      * Remove order.
      *
-     * @param \Order $order
+     * @param \Purchase $order
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeOrder(\Order $order)
+    public function removeOrder(\Purchase $order)
     {
         return $this->orders->removeElement($order);
     }

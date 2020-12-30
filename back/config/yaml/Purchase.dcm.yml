@@ -1,6 +1,6 @@
-Order:
+Purchase:
   type: entity
-  table: order
+  table: purchase
   id:
     idOrder:
       type: integer
@@ -8,7 +8,7 @@ Order:
       options:
         unsigned: false
       id: true
-      column: id_order
+      column: id_purchase
       generator:
         strategy: SEQUENCE
   manyToOne:
@@ -22,10 +22,10 @@ Order:
     products:
       targetEntity: Product
       joinTable:
-        name: order_product
+        name: purchase_product
         joinColumns:
           order_id:
-            referencedColumnName: id_order
+            referencedColumnName: id_purchase
         inverseJoinColumns:
           product_id:
             referencedColumnName: id_product

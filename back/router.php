@@ -8,6 +8,7 @@ use Tuupola\Middleware\JwtAuthentication;
 
 use App\Controllers\UserController;
 use App\Controllers\ProductController;
+use App\Controllers\OrderController;
 use App\Middlewares\CorsMiddleware;
 use App\Controllers\ErrorController;
 
@@ -22,6 +23,7 @@ return function(App $app) {
         $group->post('/login', UserController::class . ':login');
         $group->post('/register', UserController::class . ':register');
         $group->get('/account', UserController::class . ':getUser');
+        $group->post('/order', OrderController::class . ':order');
     });
 
     $app->group('/products', function(Group $group) {
