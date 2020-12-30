@@ -11,6 +11,10 @@ Product:
       column: id_product
       generator:
         strategy: SEQUENCE
+  oneToMany:
+    purchases:
+      targetEntity: ProductPurchase
+      mappedBy: product
   fields:
     name:
       type: string

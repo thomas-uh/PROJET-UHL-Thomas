@@ -1,6 +1,6 @@
 import { CartItem } from './../../shared/CartItem';
 import { environment } from '../../../environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class ProductService {
     );
   }
 
-  postOrder(products: CartItem[]): Observable<{success: boolean}> {
+  postOrder(products: CartItem[]): Observable<{success: any}> {
     let body = new URLSearchParams();
     body.set('products', JSON.stringify(products));
 

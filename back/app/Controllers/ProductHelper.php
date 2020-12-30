@@ -2,10 +2,9 @@
 
 namespace App\Controllers;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\ORM\EntityManager;
 use Product;
+use ProductPurchase;
 
 class ProductHelper
 {
@@ -23,17 +22,21 @@ class ProductHelper
         ];
     }
 
-    public function parseProducts(array $products ): array {
+    public function parseProductPurchases(array $products): array {
         $result = [];
         
         foreach($products as $product) {
-            $p = $this->getProductByName($product['name'] ?? "");
-
+            $p = $this->getProductByName($product['name']);
             if ($p == null) continue;
 
             $quantity = $product["quantity"] ?? 0;
+            if ($quantity <= 0) continue;
 
-            for($i = 0; $i < $quantity; $i++) array_push($result, $p);            
+            $productPurchase = new ProductPurchase();
+            $productPurchase->setProduct($p);
+            $productPurchase->setQuantity($quantity);
+
+            array_push($result, $productPurchase);            
         }
 
         return $result;

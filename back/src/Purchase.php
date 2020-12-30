@@ -30,6 +30,13 @@ class Purchase
     private $date;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="ProductPurchase", mappedBy="order")
+     */
+    private $productPurchases;
+
+    /**
      * @var \Client
      *
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="orders")
@@ -40,26 +47,11 @@ class Purchase
     private $buyer;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Product")
-     * @ORM\JoinTable(name="purchase_product",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="order_id", referencedColumnName="id_purchase")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id_product")
-     *   }
-     * )
-     */
-    private $products;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productPurchases = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -97,6 +89,42 @@ class Purchase
     }
 
     /**
+     * Add productPurchase.
+     *
+     * @param \ProductPurchase $productPurchase
+     *
+     * @return Purchase
+     */
+    public function addProductPurchase(\ProductPurchase $productPurchase)
+    {
+        $this->productPurchases[] = $productPurchase;
+
+        return $this;
+    }
+
+    /**
+     * Remove productPurchase.
+     *
+     * @param \ProductPurchase $productPurchase
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeProductPurchase(\ProductPurchase $productPurchase)
+    {
+        return $this->productPurchases->removeElement($productPurchase);
+    }
+
+    /**
+     * Get productPurchases.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductPurchases()
+    {
+        return $this->productPurchases;
+    }
+
+    /**
      * Set buyer.
      *
      * @param \Client|null $buyer
@@ -118,41 +146,5 @@ class Purchase
     public function getBuyer()
     {
         return $this->buyer;
-    }
-
-    /**
-     * Add product.
-     *
-     * @param \Product $product
-     *
-     * @return Purchase
-     */
-    public function addProduct(\Product $product)
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product.
-     *
-     * @param \Product $product
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeProduct(\Product $product)
-    {
-        return $this->products->removeElement($product);
-    }
-
-    /**
-     * Get products.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
     }
 }

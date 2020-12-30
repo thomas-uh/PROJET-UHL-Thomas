@@ -43,6 +43,20 @@ class Product
      */
     private $price;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="ProductPurchase", mappedBy="product")
+     */
+    private $purchases;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->purchases = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get idProduct.
@@ -124,5 +138,41 @@ class Product
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Add purchase.
+     *
+     * @param \ProductPurchase $purchase
+     *
+     * @return Product
+     */
+    public function addPurchase(\ProductPurchase $purchase)
+    {
+        $this->purchases[] = $purchase;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchase.
+     *
+     * @param \ProductPurchase $purchase
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePurchase(\ProductPurchase $purchase)
+    {
+        return $this->purchases->removeElement($purchase);
+    }
+
+    /**
+     * Get purchases.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPurchases()
+    {
+        return $this->purchases;
     }
 }

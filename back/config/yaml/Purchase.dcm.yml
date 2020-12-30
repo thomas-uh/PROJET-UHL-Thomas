@@ -18,17 +18,10 @@ Purchase:
       joinColumn:
         name: buyer_id
         referencedColumnName: id_user
-  manyToMany:
-    products:
-      targetEntity: Product
-      joinTable:
-        name: purchase_product
-        joinColumns:
-          order_id:
-            referencedColumnName: id_purchase
-        inverseJoinColumns:
-          product_id:
-            referencedColumnName: id_product
+  oneToMany:
+    productPurchases:
+      targetEntity: ProductPurchase
+      mappedBy: order
   fields:
     date:
       type: date

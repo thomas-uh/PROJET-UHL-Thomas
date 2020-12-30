@@ -40,9 +40,9 @@ class OrderController
         $json = $body['products'] ?? "";
         $data = json_decode($json, true);
 
-        $products = $this->productHelper->parseProducts($data);
+        $productPurchases = $this->productHelper->parseProductPurchases($data);
 
-        if (count($products) <= 0) {
+        if (count($productPurchases) <= 0) {
             $response->getBody()->write(json_encode([
                 'success' => false,
                 ]));
@@ -56,7 +56,11 @@ class OrderController
         $order->setDate(date_create());
         $order->setBuyer($client);
         $client->addOrder($order);
-        foreach($products as $product) $order->addProduct($product);
+        
+        foreach($productPurchases as $productPurchase) {
+            $productPurchase->setOrder($order);
+            $this->em->persist($productPurchase);
+        }
         
         $this->em->persist($order);
         $this->em->persist($client);

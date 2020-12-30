@@ -14,7 +14,7 @@ import { ProductState } from '../../../shared/states/product-state';
 })
 export class ProductCartComponent implements OnInit {
 
-  public productCart$: Observable<CartItem>;
+  public productCart$: Observable<CartItem[]>;
   public cartSize$: Observable<number>;
   public cartValue$: Observable<number>;
 
@@ -25,8 +25,8 @@ export class ProductCartComponent implements OnInit {
   ngOnInit(): void {
     this.productCart$ = this.store.select(state => state.productCart.products).pipe(
       tap(
-        (item: CartItem): void => {
-          this.products.push(item);
+        (items: CartItem[]): void => {
+          this.products = items;
         }
       )
     )
@@ -37,26 +37,14 @@ export class ProductCartComponent implements OnInit {
 
   public ClearCart(): void {
     this.store.dispatch(new ClearCart());
-
-    this.products = [];
   }
 
   public RemoveOneUnitFromCart(cartItem: CartItem): void {
     this.store.dispatch(new RemoveOneUnit(cartItem));
-
-    for(let item of this.products) {
-      if (item.name === cartItem.name) {
-        item.quantity--;
-
-        if (item.quantity === 0) this.products = this.products.filter(item => item.name !== cartItem.name);
-      }
-    }
   }
 
   public RemoveFromCart(cartItem: CartItem): void {
     this.store.dispatch(new RemoveFromCart(cartItem));
-
-    this.products = this.products.filter(item => item.name !== cartItem.name);
   }
 
   public Order(): void {
