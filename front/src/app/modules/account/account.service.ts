@@ -42,4 +42,11 @@ export class AccountService {
   getUser(): Observable<Account> {
     return this.http.get<Account>(environment.backendAPI + 'users/account');
   }
+
+  getPurchaseHistory(): Observable<{success: boolean, result: Array<{order_id: number, date: {date: Date, timezone_type: number, timezone: string}}>}> {
+    return this.http.get
+      <{success: boolean, result: Array<{order_id: number, date: {date: Date, timezone_type: number, timezone: string}}>}>(
+        environment.backendAPI + 'users/purchases/history'
+    )
+  }
 }

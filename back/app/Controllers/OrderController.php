@@ -78,4 +78,41 @@ class OrderController
             ->withStatus(200);
     }   
 
+    public function history(Request $request, Response $response, array $args): Response {
+        $login = JWTTokenHelper::getLoginFromAuth($request);
+
+        $clientRepo = $this->em->getRepository('Client');
+        $client = $clientRepo->findOneBy([
+            'login' => $login,
+        ]);
+
+        if ($client == null) {
+            $response->getBody()->write(json_encode(['success' => false]));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(401);
+        }
+
+        $result = [];
+
+        foreach($client->getOrders() as $order) {
+            array_push($result, [
+                'order_id' => $order->getIdOrder(),
+                'date' => $order->getDate()
+            ]);
+        }
+
+        $response->getBody()->write(json_encode([
+            'success' => true,
+            'result' => $result,
+            ]));
+
+        $token_jwt = JWTTokenHelper::generateJWTToken($login);
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Authorization', 'Bearer ' . $token_jwt)
+            ->withStatus(200);
+    }
 }

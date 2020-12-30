@@ -24,6 +24,10 @@ return function(App $app) {
         $group->post('/register', UserController::class . ':register');
         $group->get('/account', UserController::class . ':getUser');
         $group->post('/order', OrderController::class . ':order');
+
+        $group->group('/purchases', function(Group $grp) {
+            $grp->get('/history', OrderController::class . ':history');
+        });
     });
 
     $app->group('/products', function(Group $group) {

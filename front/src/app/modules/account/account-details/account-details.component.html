@@ -15,4 +15,15 @@
         <span class="account-info">Adresse : {{account.address.street}} {{account.address.zipCode}} {{account.address.city}}, {{account.address.country}}</span>
         <span class="account-info">Téléphone : {{account.phone}}</span>
     </div>
+
+    <div class="my-3">
+        <h3>Votre historique de commandes</h3>
+        <div class="card my-2" *ngFor="let purchase of historyOfPurchases$ | async">
+            <div class="card-header">
+                <a [routerLink]="['/account/purchase/', purchase.order_id]">
+                    Commande du : {{ purchase.date.date | date:'dd/MM/yyyy' }}
+                </a>
+            </div>          
+        </div>
+    </div>
 </section>
