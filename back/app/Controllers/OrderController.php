@@ -115,4 +115,61 @@ class OrderController
             ->withHeader('Authorization', 'Bearer ' . $token_jwt)
             ->withStatus(200);
     }
+
+    public function get(Request $request, Response $response, array $args): Response {
+        $login = JWTTokenHelper::getLoginFromAuth($request);
+
+        $clientRepo = $this->em->getRepository('Client');
+        $client = $clientRepo->findOneBy([
+            'login' => $login,
+        ]);
+
+        if ($client == null) {
+            $response->getBody()->write(json_encode(['success' => false]));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(401);
+        }
+
+        $order_id = $args["order_id"] ?? -1;
+        if ($order_id == -1) return $response->withStatus(400);
+
+        $orderRepo = $this->em->getRepository('Purchase');
+        $order = $orderRepo->find($order_id);
+
+        if ($order == null) {
+            $response->getBody()->write(json_encode(['success' => false]));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(401);
+        }
+
+        if ($order->getBuyer()->getIdUser() != $client->getIdUser()) return $response->withStatus(403);
+
+        $result = [];
+        foreach($order->getProductPurchases() as $productPurchase) {
+            $product = $productPurchase->getProduct();
+
+            array_push($result, [
+                'product_id' => $product->getIdProduct(),
+                'product_name' => $product->getName(),
+                'product_price' => $product->getPrice(),
+                'quantity' => $productPurchase->getQuantity()
+            ]);
+        }
+
+        $response->getBody()->write(json_encode([
+            'success' => true,
+            'result' => $result,
+            ]));
+
+        $token_jwt = JWTTokenHelper::generateJWTToken($login);
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Authorization', 'Bearer ' . $token_jwt)
+            ->withStatus(200);
+    }
 }

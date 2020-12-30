@@ -47,6 +47,13 @@ export class AccountService {
     return this.http.get
       <{success: boolean, result: Array<{order_id: number, date: {date: Date, timezone_type: number, timezone: string}}>}>(
         environment.backendAPI + 'users/purchases/history'
-    )
+    );
+  }
+
+  getPurchase(order_id: number): Observable<{success: boolean, result: Array<{product_id: number, product_name: string, product_price: number, quantity: number}>}> {
+    return this.http.get
+      <{success: boolean, result: Array<{product_id: number, product_name: string, product_price: number, quantity: number}>}>(
+        environment.backendAPI + 'users/purchases/get/' + order_id
+    );
   }
 }

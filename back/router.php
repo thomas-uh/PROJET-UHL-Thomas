@@ -27,6 +27,7 @@ return function(App $app) {
 
         $group->group('/purchases', function(Group $grp) {
             $grp->get('/history', OrderController::class . ':history');
+            $grp->get('/get/{order_id}', OrderController::class . ':get');
         });
     });
 

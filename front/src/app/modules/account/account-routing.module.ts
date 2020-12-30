@@ -1,3 +1,4 @@
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { AccountLoginComponent } from './account-login/account-login.component';
 import { AccountCreationFormComponent } from './account-creation-form/account-creation-form.component';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: AccountLoginComponent
-  }
+  },
+  {
+    path: 'purchase/:order_id',
+    component: OrderDetailComponent
+  },
 ];
 
 @NgModule({

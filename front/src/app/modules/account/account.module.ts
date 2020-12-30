@@ -1,3 +1,4 @@
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { AccountLoginComponent } from './account-login/account-login.component';
 import { CommonModule } from '@angular/common';
 import { CustomDirectives } from './../../../directives/custom-directives.module';
@@ -15,7 +16,8 @@ import { ApiAccountInterceptor } from './api-account-interceptor';
   declarations: [
     AccountCreationFormComponent,
     AccountDetailsComponent,
-    AccountLoginComponent
+    AccountLoginComponent,
+    OrderDetailComponent
   ],
   imports: [
     CommonModule,
