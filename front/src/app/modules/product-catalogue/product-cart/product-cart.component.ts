@@ -2,9 +2,9 @@ import { CartItem } from './../../../shared/CartItem';
 import { mergeMap, tap } from 'rxjs/operators';
 import { ProductService } from './../product.service';
 import { ClearCart, RemoveOneUnit, RemoveFromCart } from '../../../shared/actions/productCart-action';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ProductState } from '../../../shared/states/product-state';
 
 @Component({
@@ -12,13 +12,16 @@ import { ProductState } from '../../../shared/states/product-state';
   templateUrl: './product-cart.component.html',
   styleUrls: ['./product-cart.component.scss']
 })
-export class ProductCartComponent implements OnInit {
+export class ProductCartComponent implements OnInit, OnDestroy {
 
   public productCart$: Observable<CartItem[]>;
   public cartSize$: Observable<number>;
   public cartValue$: Observable<number>;
 
+  public postError: boolean = false;
+
   private products: CartItem[] = [];
+  private postCartSub: Subscription = null;
 
   constructor(private store: Store, private productService: ProductService) { }
 
@@ -35,6 +38,10 @@ export class ProductCartComponent implements OnInit {
     this.cartValue$ = this.store.select(ProductState.getCartValue);
   }
 
+  ngOnDestroy(): void {
+    if (this.postCartSub !== null) this.postCartSub.unsubscribe(); 
+  }
+
   public ClearCart(): void {
     this.store.dispatch(new ClearCart());
   }
@@ -48,6 +55,15 @@ export class ProductCartComponent implements OnInit {
   }
 
   public Order(): void {
-    this.productService.postOrder(this.products).subscribe(val => console.log(val));
+    if (this.postCartSub !== null) this.postCartSub.unsubscribe();
+
+    this.postCartSub = this.productService.postOrder(this.products).subscribe(response => {
+     if (response.success) {
+       this.store.dispatch(new ClearCart());
+       this.postError = false;
+     } else {
+      this.postError = true;
+     }
+    });
   }
 }

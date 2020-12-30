@@ -1,7 +1,7 @@
 <section class="my-5 container">
     <h2 class="mb-3">Votre panier :</h2>
 
-    <div *ngIf="(cartSize$ | async) != 0">
+    <div *ngIf="(cartSize$ | async) != 0;else onEmptyCart">
 
         <div class="card my-2" *ngFor="let product of productCart$ | async">
             <div class="card-header">
@@ -22,7 +22,15 @@
             <button type="button" class="btn btn-secondary" (click)="ClearCart()">Vider le panier</button>
             <button type="button" class="btn btn-primary" (click)="Order()">Valider votre achat !</button>
         </div>
+        <div *ngIf="postError" class="alert alert-danger my-3">
+           Erreur lors de la validation de vos nouveaux ajout dans votre &lt;espace&gt; !
+        </div>
     </div>
+
+    <ng-template #onEmptyCart>
+        Votre panier est vide !
+    </ng-template>
+    
 
     
 </section>
