@@ -14,7 +14,7 @@ class CorsMiddleware
 
         $response = $response
             ->withHeader('Access-Control-Expose-Headers', '*')
-            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Origin', $_ENV['ALLOWED_ORIGIN'])
             ->withHeader('Access-Control-Allow-Headers', '*')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
             ->withHeader('Access-Control-Allow-Credentials', 'true');

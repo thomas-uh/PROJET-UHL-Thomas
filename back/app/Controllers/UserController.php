@@ -37,7 +37,7 @@ class UserController
             'login' => $login,
         ]);
 
-        if ($client == null || $client->getPassword() != $password) {
+        if ($client == null || !password_verify($password, $client->getPassword())) {
             $response->getBody()->write(json_encode(['success' => false]));
 
             return $response
@@ -96,6 +96,9 @@ class UserController
         
         if ($client != null) return $response->withStatus(400);
 
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        if (!$passwordHash) return $response->withStatus(400);
+
         $user = new \Client;
 
         $user->setLastname($lastname);
@@ -108,7 +111,7 @@ class UserController
         $user->setCity($city);
         $user->setCountry($country);
         $user->setLogin($login);
-        $user->setPassword($password);
+        $user->setPassword($passwordHash);
         $this->em->persist($user);
         $this->em->flush();
 
