@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CartItem } from './../../../shared/CartItem';
 import { mergeMap, tap } from 'rxjs/operators';
 import { ProductService } from './../product.service';
@@ -23,7 +24,7 @@ export class ProductCartComponent implements OnInit, OnDestroy {
   private products: CartItem[] = [];
   private postCartSub: Subscription = null;
 
-  constructor(private store: Store, private productService: ProductService) { }
+  constructor(private store: Store, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.productCart$ = this.store.select(state => state.productCart.products).pipe(
@@ -61,6 +62,7 @@ export class ProductCartComponent implements OnInit, OnDestroy {
      if (response.success) {
        this.store.dispatch(new ClearCart());
        this.postError = false;
+       this.router.navigate(['/product/list']);
      } else {
       this.postError = true;
      }
