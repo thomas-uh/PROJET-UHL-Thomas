@@ -5,8 +5,10 @@ require_once "vendor/autoload.php";
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 $isDevMode = true;
 $config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
