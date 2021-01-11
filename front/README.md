@@ -1,4 +1,6 @@
-# Tp05UhlThomas
+# Projet Web Thomas Uhl
+
+Lien vers la version hébergée [https://projet-thomas-u-front.herokuapp.com/](https://projet-thomas-u-front.herokuapp.com/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.3.
 
