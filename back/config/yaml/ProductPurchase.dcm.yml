@@ -30,4 +30,9 @@ ProductPurchase:
       nullable: false
       options:
         fixed: false
+    price:
+      type: float
+      nullable: false
+      options:
+        fixed: false
   lifecycleCallbacks: {}

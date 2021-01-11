@@ -62,7 +62,7 @@ export class ProductCartComponent implements OnInit, OnDestroy {
      if (response.success) {
        this.store.dispatch(new ClearCart());
        this.postError = false;
-       this.router.navigate(['/product/list']);
+       this.router.navigate(['/product/order/complete']);
      } else {
       this.postError = true;
      }

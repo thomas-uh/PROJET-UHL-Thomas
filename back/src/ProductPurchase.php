@@ -30,6 +30,13 @@ class ProductPurchase
     private $quantity;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", nullable=false)
+     */
+    private $price;
+
+    /**
      * @var \Purchase
      *
      * @ORM\ManyToOne(targetEntity="Purchase", inversedBy="productPurchases")
@@ -82,6 +89,30 @@ class ProductPurchase
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * Set price.
+     *
+     * @param float $price
+     *
+     * @return ProductPurchase
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price.
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     /**

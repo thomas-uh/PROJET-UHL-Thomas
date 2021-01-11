@@ -35,6 +35,7 @@ class ProductHelper
             $productPurchase = new ProductPurchase();
             $productPurchase->setProduct($p);
             $productPurchase->setQuantity($quantity);
+            $productPurchase->setPrice($p->getPrice());
 
             array_push($result, $productPurchase);            
         }

@@ -1,3 +1,4 @@
+import { OrderCompleteComponent } from './order-complete/order-complete.component';
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
@@ -14,7 +15,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     ProductFilterComponent,
     ProductListComponent,
     ProductCartComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    OrderCompleteComponent
   ],
   imports: [
     CommonModule,

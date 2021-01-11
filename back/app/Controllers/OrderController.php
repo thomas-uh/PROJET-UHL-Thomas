@@ -155,7 +155,7 @@ class OrderController
             array_push($result, [
                 'product_id' => $product->getIdProduct(),
                 'product_name' => $product->getName(),
-                'product_price' => $product->getPrice(),
+                'product_price' => $productPurchase->getPrice(),
                 'quantity' => $productPurchase->getQuantity()
             ]);
         }

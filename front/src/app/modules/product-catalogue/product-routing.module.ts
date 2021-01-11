@@ -1,3 +1,4 @@
+import { OrderCompleteComponent } from './order-complete/order-complete.component';
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'detail/:name',
     component: ProductDetailComponent
+  },
+  {
+    path: 'order/complete',
+    component: OrderCompleteComponent
   },
 ];
 
